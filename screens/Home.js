@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text, Button, Card, Icon} from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+import FAB from 'react-native-fab';
 
 function HomeScreen({navigation}) {
   const [attractions, setAttractions] = useState([]);
@@ -29,8 +30,8 @@ function HomeScreen({navigation}) {
     alert(error);
   }
 
-  if(loading===true){
-    return(
+  if (loading === true) {
+    return (
       <View style={styles.container}>
         <Spinner
           visible={loading}
@@ -38,7 +39,7 @@ function HomeScreen({navigation}) {
           textStyle={styles.spinnerTextStyle}
         />
       </View>
-    )
+    );
   }
 
   return (
@@ -59,9 +60,11 @@ function HomeScreen({navigation}) {
                 {item.detail}
               </Text>
               <Button
-                onPress={()=>navigation.navigate('Details',{
-                  id: item.id
-                })}
+                onPress={() =>
+                  navigation.navigate('Details', {
+                    id: item.id,
+                  })
+                }
                 icon={
                   <Icon
                     type="antdesign"
@@ -82,6 +85,14 @@ function HomeScreen({navigation}) {
           </View>
         ))}
       </ScrollView>
+      <FAB
+        buttonColor="#2B70EC"
+        onClickAction={() => {
+          navigation.navigate('AddScreen')
+        }}
+        visible={true}
+        iconTextComponent={<Icon type="entypo" name="plus" color="white" />}
+      />
     </>
   );
 }
@@ -91,7 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   spinnerTextStyle: {
-    color: '#FFF'
+    color: '#FFF',
   },
 });
 
